@@ -12,7 +12,9 @@ when(serviceMock.signInAsync(anyString(), anyString())).thenCall(
       u => u.name === username && u.password === password
     );
 
-    if (!user) throw new Error("Incorrect Credentials");
+    if (typeof user === "undefined") {
+      throw new Error("Invalid Credentials");
+    }
 
     const profile = Profiles.find(p => p.id === user.id);
     return profile;
